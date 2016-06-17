@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="entity">
+	<class name="Publisher">
+		<id name="publisherID">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="publisherName" type="string"/>
+		<property name="password" type="string"/>
+		<property name="email" type="string"/>
+		<set name="books" table="public_books" cascade="all">
+			<key column="publisherID"></key>
+			<one-to-many class="Book"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<hibernate-mapping package="entity">
+		<class name="Book">
+			<id name="bookID">
+				<generator class="assigned"></generator>
+			</id>
+			<property name="bookName" type="string"/>
+			<property name="bookISBN" type="string"/>
+			<property name="bookState" type="integer"/>
+			<property name="bookImgUrl" type="string"/>
+			<property name="bookDesc" type="string"/>
+			<property name="bookUrl" type="string"/>
+			<many-to-one name="bookPub" class="Publisher" column="publisherID" cascade="all"/>
+			<set name="users" table="users_books" cascade="all">
+				<key column="bookID"/>
+				<many-to-many class="User" column="userID"/>
+			</set>
+			<set name="comments" table="book_comments" cascade="all">
+				<key column="bookID"></key>
+				<one-to-many class="Comment"/>
+			</set>
+			<many-to-one name="bookType" class="Type" column="typeID" />
+		</class>
+	
+	</hibernate-mapping>
+	

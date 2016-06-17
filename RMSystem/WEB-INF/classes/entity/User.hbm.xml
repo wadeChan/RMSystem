@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<hibernate-mapping package="entity">
+		<class name="User" table="user">
+			<id name="userID">
+				<generator class="assigned"></generator>
+			</id>
+		<property name="password" type="string"/>
+		<property name="qq" type="string"/>
+		<property name="email" type="string"/>
+		<set name="books" table="users_books" cascade="all">
+			 <key column="userid"></key>
+			 <many-to-many class="Book" column="bookID"/>
+		</set>
+		<set name="comments" table="user_comments" cascade="all">
+			<key column="userID"></key>
+			<one-to-many class="Comment"/>
+		</set>
+	</class>
+	</hibernate-mapping>

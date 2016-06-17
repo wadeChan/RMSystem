@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	 <bean id="adminLogin" class="action.AdminLogin" scope="prototype"/>
+	 <bean id="typeManage" class="action.TypeManage" scope="prototype"/>
+	 <bean id="publisherRegLog" class="action.PublisherRegLog" scope="prototype"/>
+	 <bean id="userRegLog" class="action.UserRegLog" scope="prototype"/>
+	 <bean id="bookManage" class="action.BookManage" scope="prototype"/>
+	 <bean id="userManage" class="action.UserManage" scope="prototype"/>
+	 <bean id="publisherManage" class="action.PublisherManage" scope="prototype"/>
+	 <bean id="checkManage" class="action.CheckManage" scope="prototype"/>
+	 <bean id="commentManage" class="action.CommentManage" scope="prototype"/>
+	 <bean id="favoriteManage" class="action.FavoriteManage" scope="prototype"/>
+	 </beans>

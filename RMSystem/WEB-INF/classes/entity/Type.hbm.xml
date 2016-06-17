@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<hibernate-mapping package="entity">
+		<class name="Type" table="type">
+			<id name="typeID">
+				<generator class="assigned"/>
+			</id>
+			<property name="typeName"/>
+			<property name="imgUrl" type="string"/>
+			<property name="typeDesc"/>
+			<set name="books" cascade="all">
+				<key column="typeID" />
+				<one-to-many class="Type"/>
+			</set>
+		</class>
+	</hibernate-mapping>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	 	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	 	<property name="url" value="jdbc:mysql://localhost:3306/rmsystem?useUnicode=true&amp;characterEncoding=UTF-8"/>
+	 	<property name="username" value="root"/>
+	 	<property name="password" value="root"/>
+	 </bean>
+	 <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" lazy-init="false">
+	 	<property name="dataSource">
+	 		<ref bean="dataSource"/>
+	 	</property>
+	 	<property name="mappingResources">
+	 		<list>
+	 			<value>entity/Admin.hbm.xml</value>
+	 			<value>entity/Book.hbm.xml</value>
+	 			<value>entity/Comment.hbm.xml</value>
+	 			<value>entity/Publisher.hbm.xml</value>
+	 			<value>entity/User.hbm.xml</value>
+	 			<value>entity/Type.hbm.xml</value>
+	 		</list>
+	 	</property>
+	 	<property name="hibernateProperties">
+	 		<props>
+	 			<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+	 			<prop key="hibernate.hbm2ddl.auto">update</prop>
+	 			<prop key="hibernate.show_sql">true</prop>
+	 			<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+	 			<prop key="connection.provider_class">org.hibernate.connection.ProxoolConnectionProvider</prop>
+	 			<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+	 			<prop key="hibernate.cache.use_query_cache">false</prop>
+	 			<!--  配置二级缓存  hibernate4  -->
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<!-- 开启查询缓存 -->
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+	 			
+	 			<prop key="hibernate.jdbc.fetch_size">0</prop>
+	 			<prop key="hibernate.jdbc.batch_size">0</prop>
+	 			<prop key="hibernate.default_batch_fetch_size">0</prop>
+	 			<prop key="hibernate.generate_statistics">false</prop>
+	 			<prop key="hibernate.use_sql_comments">false</prop>
+	 			<prop key="hibernate.connection.autocommit">false</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	 <bean id="adminDAO" class="DAO.AdminDAO">
+	 	<property name="sessionFactory" ref="sessionFactory"/>
+	 </bean>
+	 <bean id="typeDAO" class="DAO.TypeDAO">
+	 	<property name="sessionFactory" ref="sessionFactory"/>
+	 </bean>
+	 <bean id="publisherDAO" class="DAO.PublisherDAO">
+	 	<property name="sessionFactory" ref="sessionFactory"/>
+	 </bean>
+	 <bean id="userDAO" class="DAO.UserDAO">
+	 	<property name="sessionFactory" ref="sessionFactory"/>
+	 </bean>
+	 <bean id="bookDAO" class="DAO.BookDAO">
+	 	<property name="sessionFactory" ref="sessionFactory"/>
+	 </bean>
+	 <bean id="commentDAO" class="DAO.CommentDAO">
+	 	<property name="sessionFactory" ref="sessionFactory"/>
+	 </bean>
+	 <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	 	<property name="sessionFactory" ref="sessionFactory"/>
+	 </bean>
+	 <bean id="adminDAOProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	 	<property name="proxyInterfaces">
+	 		<list>
+	 			<value>DAO.IAdminDAO</value>
+	 		</list>
+	 	</property>
+	 	<property name="target" ref="adminDAO"/>
+	 	<property name="transactionManager" ref="transactionManager"/>
+	 	<property name="transactionAttributes">
+	 		<props>
+	 			<prop key="insert*" >PROPAGATION_REQUIRED</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	 <bean id="typeDAOProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	 	<property name="proxyInterfaces">
+	 		<list>
+	 			<value>DAO.ITypeDAO</value>
+	 		</list>
+	 	</property>
+	 	<property name="target" ref="typeDAO"/>
+	 	<property name="transactionManager" ref="transactionManager"/>
+	 	<property name="transactionAttributes">
+	 	<props>
+	 			<prop key="insert*" >PROPAGATION_REQUIRED</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	 <bean id="publisherDAOProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	 	<property name="proxyInterfaces">
+	 		<list>
+	 			<value>DAO.IPublisherDAO</value>
+	 		</list>
+	 	</property>
+	 	<property name="target" ref="publisherDAO"/>
+	 	<property name="transactionManager" ref="transactionManager"/>
+	 	<property name="transactionAttributes">
+	 	<props>
+	 			<prop key="insert*" >PROPAGATION_REQUIRED</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	 <bean id="userDAOProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	 	<property name="proxyInterfaces">
+	 		<list>
+	 			<value>DAO.IUserDAO</value>
+	 		</list>
+	 	</property>
+	 	<property name="target" ref="userDAO"/>
+	 	<property name="transactionManager" ref="transactionManager"/>
+	 	<property name="transactionAttributes">
+	 	<props>
+	 			<prop key="insert*" >PROPAGATION_REQUIRED</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	  <bean id="bookDAOProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	 	<property name="proxyInterfaces">
+	 		<list>
+	 			<value>DAO.IBookDAO</value>
+	 		</list>
+	 	</property>
+	 	<property name="target" ref="bookDAO"/>
+	 	<property name="transactionManager" ref="transactionManager"/>
+	 	<property name="transactionAttributes">
+	 	<props>
+	 			<prop key="insert*" >PROPAGATION_REQUIRED</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	  <bean id="commentDAOProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	 	<property name="proxyInterfaces">
+	 		<list>
+	 			<value>DAO.ICommentDAO</value>
+	 		</list>
+	 	</property>
+	 	<property name="target" ref="commentDAO"/>
+	 	<property name="transactionManager" ref="transactionManager"/>
+	 	<property name="transactionAttributes">
+	 	<props>
+	 			<prop key="insert*" >PROPAGATION_REQUIRED</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+	 </beans>

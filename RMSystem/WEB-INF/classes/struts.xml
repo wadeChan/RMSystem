@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ <struts>
+<constant name="struts.i18n.encoding" value="utf-8"/>
+<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory"/>
+<constant name="struts.enable.DynamicMethodInvacation" value="true"/>
+<include file="struts-default.xml"></include>
+<package name="default" extends="struts-default">
+<!-- -管理员的action start -->
+    		<action name="AdminLogin" class="adminLogin">
+    			<result name="success">/admin/adminIndex.jsp</result>
+    			<result name="error">/error.jsp</result>
+    		</action>
+    		<action name="deleteUser" class="userManage" method="deleteUser"> 
+    			<result name="success">/admin/userManage.jsp</result>
+    			<result name="error">/admin/userManage.jsp</result>
+    		</action>
+    		<action name="deletePublisher" class="publisherManage" method="deletePublisher"> 
+    			<result name="success">/admin/publisherManage.jsp</result>
+    			<result name="error">/admin/publisherManage.jsp</result>
+    		</action>
+    		<action name="adminCheckSuccess" class="checkManage" method="adminCheckSuccess">
+    			<result name="success">/admin/checkManage.jsp</result>
+    			<result name="error">/admin/checkManage.jsp</result>
+    		</action>
+    		<action name="adminCheckError" class="checkManage" method="adminCheckError">
+    			<result name="success">/admin/checkManage.jsp</result>
+    			<result name="error">/admin/checkManage.jsp</result>
+    		</action>
+    		<action name="addType" class="typeManage" method="addType">
+    			<result name="success">/admin/classifyManage.jsp</result>
+    			<result name="error">/admin/classifyManage.jsp</result>
+    		</action>
+    		<action name="delType" class="typeManage" method="delType">
+    			<result name="success">/admin/classifyManage.jsp</result>
+    			<result name="error">/admin/classifyManage.jsp</result>
+    		</action>
+    		<action name="beforeUpd" class="typeManage" method="beforeUpd">
+    			<result name="selected">/admin/updateTypeInfo.jsp</result>
+    			<result name="not">/admin/classifyManage.jsp</result>
+    			<result name="error" >/admin/classifyManage.jsp</result>
+    		</action>
+    		<action name="updType" class="typeManage" method="updType">
+    			<result name="success">/admin/classifyManage.jsp</result>
+    			<result name="error">/admin/updateTypeInfo.jsp</result>
+    		</action>
+    		<action name="passComment" class="commentManage" method="passComment">
+    			<result name="success" >/admin/commentManage.jsp</result>
+    			<result name="error" >/admin/commentManage.jsp</result>
+    		</action>
+    		<action name="deleteComment" class="commentManage" method="deleteComment">
+    			<result name="success" >/admin/commentManage.jsp</result>
+    			<result name="error" >/admin/commentManage.jsp</result>
+    		</action>
+<!-- -管理员的action end -->
+<!-- -出版商的action start -->
+    		<action name="publisherReg" class="publisherRegLog" method="publisherReg">
+    			<result name="success">/publisher/publisherLogin.jsp</result>
+    			<result name="error">/publisher/publisherRegister.jsp</result>
+    		</action>
+    		<action name="publisherLogin" class="publisherRegLog" method="publisherLog">
+    			<result name="success">/publisher/publisherIndex.jsp</result>
+    			<result name="error">/publisher/publisherLogin.jsp</result>
+    		</action>
+    		<action name="addBook" class="bookManage" method="addBook">
+    			<result name="success">/publisher/addBook.jsp</result>
+    			<result name="error">/publisher/addBook.jsp</result>
+    		</action>
+    		<action name="deleteBook" class="bookManage" method="deleteBook">
+    			<result name="success">/publisher/deleteBook.jsp</result>
+    			<result name="error">/publisher/deleteBook.jsp</result>
+    		</action>
+    		<action name="updateBook" class="bookManage" method="updateBook">
+    			<result name="success">/publisher/updateBook.jsp</result>
+    			<result name="error">/publisher/updateBook.jsp</result>
+    		</action>
+    		<action name="deletePubCookie" class="bookManage" method="deletePubCookie">
+    			<result name="success">/publisher/publisherIndex.jsp</result>
+    			<result name="error">/publisher/publisherIndex.jsp</result>
+    		</action>
+    		<action name="uploadCheckBook" class="bookManage" method="uploadCheckBook">
+    			<result name="success">/publisher/willCheckBook.jsp</result>
+    			<result name="error">/publisher/willCheckBook.jsp</result>
+    		</action>
+    		<action name="cancelCheckBook" class="bookManage" method="cancelCheckBook">
+    			<result name="success">/publisher/checkingBook.jsp</result>
+    			<result name="error">/publisher/checkingBook.jsp</result>
+    		</action>
+    		<action name="downCheckBook" class="bookManage" method="downCheckBook">
+    			<result name="success">/publisher/checkedBook.jsp</result>
+    			<result name="error">/publisher/checkedBook.jsp</result>
+    		</action>
+    		<action name="reCheckBook" class="bookManage" method="reCheckBook">
+    			<result name="success">/publisher/willCheckBook.jsp</result>
+    			<result name="error">/publisher/willCheckBook.jsp</result>
+    		</action>
+<!-- -出版商的action end -->
+<!-- -用户的action start -->
+    		<action name="userReg" class="userRegLog" method="userReg">
+    			<result name="success">/user/userLogin.jsp</result>
+    			<result name="error">/user/userRegister.jsp</result>
+    		</action>
+    		<action name="userLogin" class="userRegLog" method="userLog">
+    			<result name="success">/index.jsp</result>
+    			<result name="error">/user/userLogin.jsp</result>
+    		</action>
+    		<action name="addComment" class="commentManage" method="addComment">
+    			<result name="success">/user/bookDetails.jsp</result>
+    			<result name="error">/user/bookDetails.jsp</result>
+    		</action>
+    		<action name="intoFavorite" class="favoriteManage" method="intoFavorite">
+    			<result name="success">/user/bookDetails.jsp</result>
+    			<result name="error">/user/bookDetails.jsp</result>
+    		</action>
+    		<action name="deleteUserCookie" class="userRegLog" method="deleteUserCookie">
+    			<result name="success">/index.jsp</result>
+    			<result name="error">/index.jsp</result>
+    		</action>
+    		
+<!-- -用户的action end -->
+    		
+</package>
+</struts>
+

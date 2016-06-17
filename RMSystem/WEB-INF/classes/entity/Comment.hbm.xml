@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="entity">
+	<class name="Comment" >
+		<id name="commentID">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="commentState" type="integer"/>
+		<property name="content" type="string"/>
+		<many-to-one name="cUser" class="User" column="userID"/>
+		<many-to-one name="cBook" class="Book" column="bookID" />
+	</class>
+
+</hibernate-mapping>
